@@ -1,15 +1,22 @@
 {
-  "name": "code-exercise",
-  "version": "1.0.0",
-  "description": "This is a shopping cart coding exercise",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "canned -p 5000 ./server"
-  },
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "canned": "^0.3.12"
-  }
+    "name": "code-exercise",
+    "version": "1.0.0",
+    "description": "This is a shopping cart coding exercise",
+    "scripts": {
+        "start": "node index.js",
+        "build": "parcel build static/index.html",
+        "scss": "sass --watch scss/styles.scss:static/stylesheet/styles.css"
+    },
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "canned": "^0.3.12",
+        "express": "^4.17.1",
+        "fs": "0.0.1-security",
+        "handlebars": "^4.7.7",
+        "node-sass": "^6.0.1",
+        "parcel": "^2.0.0-beta.2",
+        "path": "^0.12.7"
+    }
 }
