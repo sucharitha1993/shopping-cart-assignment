@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Sabka Bazar</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Dosis:400,600,700" />
+    <link rel="stylesheet" type="text/css" href="/stylesheet/styles.css" />
+</head>
+
+<body>
+
+    <!-- HEADER SECTION -->
+    <header>
+        <div class='logo-container'>
+            <img src="images/logo_2x.png" width="150" class='web-logo' alt="sabka-bazar-logo">
+            <img src="images/logo.png" width="100" class='mob-logo' id="mobLogo" alt="sabka-bazar-logo">
+            <ul class='header-list'>
+                <li><a href='/home'>Home</a></li>
+                <li><a href='/products/all'>Products</a></li>
+            </ul>
+        </div>
+        <div class='header-list-mob'>
+            <ul id="headerNavList">
+                <li><a href='/home'>Home</a></li>
+                <li><a href='/products/all'>Products</a></li>
+                <li><a href='/login'>SignIn</a></li>
+                <li><a href='/register'>Register</a></li>
+            </ul>
+        </div>
+        <div>
+            <ul class='signing-list'>
+                <li><a href='/login'>SignIn</a></li>
+                <li><a href='/register'>Register</a></li>
+            </ul>
+            <a class='cart-icon' id="cartIcon" data-toggle="modal" data-target="#myModal">
+                <svg version="1.1" id="Layer_1" fill="#D10157" width="30" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+                    <path
+                        d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z" />
+                </svg>
+
+                <span class='cart-count'></span>
+            </a>
+        </div>
+    </header>
+    <!-- HEADER SECTION -->
+
+    <!-- APP ROOT -->
+    <div id='app' class='router-content'></div>
+    <!-- APP ROOT -->
+
+    <!-- PRODUCTS SECTION -->
+    <script id='product-template' type="text/x-handlebars-template">
+        <section class='products-section' id='product-section'>
+            <div class='categories-section'>
+                <ul id="categoriesSection">
+                    <li id="fruit-and-veg">Fruits and Vegetables</li>
+                    <li id="bakery-cakes-dairy">Bakery Cakes and Diary</li>
+                    <li id="beverages">Beverages</li>
+                    <li id="beauty-hygiene">Beauty and Hygiene</li>
+                    <li id="baby">Baby Care</li>
+                </ul>
+            </div>
+            <select class='mobile-category-section'>
+                <option value='all'>All Products</option>
+                <option value='fruit-and-veg'>Fruits and Vegetables</option>
+                <option value='bakery-cakes-dairy'>Bakery Cakes and Diary</option>
+                <option value='beverages'>Beverages</option>
+                <option value='beauty-hygiene'>Beauty and Hygiene</option>
+                <option value='baby'>Baby Care</option>
+            </select>
+
+            <div class='product-section'>
+                {{#each products as |product|}}
+                <div class='product-container'>
+                    <h3>{{product.name}}</h3>
+                    <div class='product-detail-container'>
+                        <img src={{product.imageURL}} alt='fruits'>
+                        <div class='product-desc'>
+                            {{product.description}}
+                        </div>
+                    </div>
+                    <button value={{product.id}} class="buyNowBtn">Buy Now @ Rs.{{product.price}} </button>
+                </div>
+                {{/each}}
+            </div>
+        </section>
+    </script>
+    <!-- PRODUCTS SECTION -->
+
+    <!-- LOGIN SECTION-->
+    <script id="login-template" type="text/x-handlebars-template">
+        <section class='login-section' id='login-section'>
+            <div class='helper-txt'>
+                <h4>Login</h4>
+                <div>Get access to your Orders, Wishlist and Recommendations</div>
+            </div>
+            <div>
+                <form>
+                    <div class="input-group">
+                        <input type="email" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Email</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Password</label>
+                    </div>
+                    <button id="loginBtn">Login</button>
+                </form>
+            </div>
+        </section>
+    </script>
+    <!-- LOGIN SECTION-->
+
+    <!-- SIGNUP SECTION-->
+    <script id="signup-template" type="text/x-handlebars-template">
+        <section class='register-section' id='signup-section'>
+            <div class='helper-txt'>
+                <h4>Signup</h4>
+                <div>we donot share your personal details with anyone</div>
+            </div>
+            <div>
+                <form>
+                    <div class="input-group">
+                        <input type="text" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Frist Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Last Name</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Email</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Password</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" required>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Confirm password</label>
+                    </div>
+                    <button id="signUpBtn">Sign up</button>
+                </form>
+            </div>
+        </section>
+    </script>
+    <!-- SIGNUP SECTION-->
+
+    <!-- HOME SECTION-->
+    <script id="home-template" type="text/x-handlebars-template">
+        <section class='home-section'>
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    {{#each banners}}
+                    <li data-target="#myCarousel" data-slide-to={{@index}} class="{{isActive @index }}"></li>
+                    {{/each}}
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    {{#each banners}}
+                    <div class="item {{isActive @index }}">
+                        <img src={{bannerImageUrl}} alt={{bannerImageAlt}}>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            {{#each categories}}
+            <div class="card">
+                <div> <img class='card-img' height="150" src={{imageUrl}}></div>
+                <div class='card-content'>
+                    <h3>{{name}}</h3>
+                    <p>{{description}}</p>
+                    <button class="explore-btn" id={{key}}>Explore {{key}}</button>
+                </div>
+            </div>
+            {{/each}}
+        </section>
+    </script>
+    <!-- HOME SECTION-->
+
+    <!-- MODAL -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">My Cart</h4>&nbsp;<span style='font-size: 75%'>(<span class='cart-count'></span>)</span>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <section class="cart-section">
+                    <div class="cart-items-container" id="cart-items-container">
+
+                    </div>
+                    <div class='cart-note'>
+                        <img src='images/lowest-price.png'>
+                        <span>You wont find it cheaper any where</span>
+                    </div>
+                    <div class='checkout'>
+                        <div class='promocode'>Promocode can be applied on payment page</div>
+                        <button type="button" data-dismiss="modal" id="proceedTocheckout">Proceed to Checkout</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL-->
+    <!-- CART SECTION -->
+    <section class="cart-section cart-section-mob">
+        <div class="cart-details">
+            <h4>My Cart</h4>&nbsp;<span>(<span class='cart-count'></span>)</span>
+        </div>
+        <div class="cart-items-container" id="cart-items-container-mob">
+
+        </div>
+        <div class='cart-note'>
+            <img src='images/lowest-price.png'>
+            <span>You wont find it cheaper any where</span>
+        </div>
+        <div class='checkout'>
+            <div class='promocode'>Promocode can be applied on payment page</div>
+            <button type="button" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </section>
+    <!-- CART SECTION -->
+    <!-- FOOTER SECTION -->
+    <footer class='footer'>
+        Copyright &copy; 2011-2018 Sabka Bazar Grocery Supplies pvt ltd
+    </footer>
+    <!-- FOOTER SECTION -->
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-router@1.2.8/index.min.js"></script>
+    <script type="text/javascript" src="/js/util.js"></script>
+    <script type="text/javascript" src="/js/services.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
+    <!-- SCRIPTS -->
+
+</body>
+
+</html>
