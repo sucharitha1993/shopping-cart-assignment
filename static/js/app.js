@@ -41,8 +41,7 @@ function renderCartData(data) {
 }
 
 function renderCartItems() {
-    fetch('http://localhost:3200/getProducts')
-        .then(response => response.json())
+    getData(ProductsURI)
         .then(data => {
             $('.cart-section').show();
             $('#cart-items-container').html('');
@@ -122,14 +121,7 @@ function modifyQuantity(eve, type) {
 }
 
 function getCartItems() {
-    fetch('http://localhost:3200/getCart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: localStorage.getItem('cartItems'),
-        })
-        .then(res => res.json())
+    postData(GetCartURI, locallocalStorage.getItem('cartItems'))
         .then(data => {
             renderCartData(data);
         });
@@ -180,16 +172,15 @@ function buyNow(e) {
     }
     localStorage.setItem('cartItems', JSON.stringify(cartItemsArr));
     updateCart();
-    fetch('http://localhost:3200/addToCart')
-        .then(res => res.json()
-            .then(data => {
-                Toastify({
-                    text: data.responseMessage,
-                    backgroundColor: "#96c93d",
-                    className: "info",
-                    close: true,
-                }).showToast();
-            }))
+    getData(AddToCartURI)
+        .then(data => {
+            Toastify({
+                text: data.responseMessage,
+                backgroundColor: "#96c93d",
+                className: "info",
+                close: true,
+            }).showToast();
+        })
 }
 
 function navigateToHome() {
@@ -241,16 +232,14 @@ router.add('/login', () => {
 });
 
 router.add('/home', () => {
-    fetch("http://localhost:3200/getCategories")
-        .then(res => res.json())
+    getData(CategoriesURI)
         .then(resp => {
             createHTML(resp.data, "home-template", "home-section");
         });
 });
 
 router.add('/products/{category}', (category) => {
-    fetch("http://localhost:3200/getProducts")
-        .then(res => res.json())
+    getData(ProductsURI)
         .then(data => {
             let productsData = data;
             let categoryBasedProducts;
