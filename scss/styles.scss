@@ -81,31 +81,6 @@ header {
     right: 0;
     top: 0;
     z-index: 99;
-    .header-list-mob {
-        display: none;
-        position: fixed;
-        left: 0;
-        background: white;
-        bottom: 0;
-        box-shadow: 0 2px 3px grey;
-        top: 0;
-        padding: 15px;
-        ul {
-            list-style: none;
-            font-size: 80%;
-            li {
-                padding: 10px;
-                cursor: pointer;
-                a {
-                    color: black;
-                    text-decoration: none;
-                }
-            }
-            li:not(:last-child) {
-                border-bottom: 1px solid $bordergrey;
-            }
-        }
-    }
     >div>.cart-icon {
         align-items: center;
         display: flex;
@@ -128,9 +103,6 @@ header {
     width: 70%;
     >.header-list {
         margin-left: 20%;
-    }
-    .mob-logo {
-        display: none;
     }
 }
 
@@ -373,15 +345,7 @@ footer {
     }
 }
 
-.cart-section-mob {
-    margin-top: -70px;
-}
-
 .no-items {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 300px;
     div {
         text-align: center;
         >span {
@@ -390,9 +354,9 @@ footer {
     }
     button {
         position: absolute;
-        bottom: 2px;
+        bottom: 0;
         z-index: 9;
-        width: 98%;
+        width: 100%;
     }
     .btm-fixed-btn {
         position: fixed;
@@ -404,4 +368,5 @@ footer {
 
 .cart-count {
     font-size: 75%;
+    margin-left: 10px;
 }

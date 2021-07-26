@@ -1,0 +1,78 @@
+<section class='products-section router-content'>
+    <div class='categories-section'>
+        <ul>
+            <li onclick="getProductsOnCategory('fruit-and-veg')">Fruits and Vegetables</li>
+            <li onclick="getProductsOnCategory('bakery-cakes-dairy')">Bakery Cakes and Diary</li>
+            <li onclick="getProductsOnCategory('beverages')">Beverages</li>
+            <li onclick="getProductsOnCategory('beauty-hygiene')">Beauty and Hygiene</li>
+            <li onclick="getProductsOnCategory('baby')">Baby Care</li>
+        </ul>
+    </div>
+    <select class='mobile-category-section' onchange="getProductsOnCategory(event)">
+        <option value='all'>All Products</option>
+        <option value='fruit-and-veg'>Fruits and Vegetables</option>
+        <option value='bakery-cakes-dairy'>Bakery Cakes and Diary</option>
+        <option value='beverages'>Beverages</option>
+        <option value='beauty-hygiene'>Beauty and Hygiene</option>
+        <option value='baby'>Baby Care</option>
+    </select>
+
+    <div class='product-section' id='product-section'>
+        {{#each products as |product|}}
+        <div class='product-container'>
+            <h3>{{product.name}}</h3>
+            <div class='product-detail-container'>
+                <img src={{product.imageURL}} alt='fruits'>
+                <div class='product-desc'>
+                    {{product.description}}
+                </div>
+            </div>
+            <button value={{product.id}} onclick="buyNow(event)">Buy Now @ Rs.{{product.price}} </button>
+        </div>
+        {{/each}}
+    </div>
+</section>
+
+
+<script>
+    function buyNow(e) {
+        var cartItemsArr = localStorage.getItem('cartItems') && JSON.parse(localStorage.getItem('cartItems')) || [];
+        let indexFound = cartItemsArr.findIndex(cartItem => cartItem.id == e.target.value);
+        if (indexFound > -1) {
+            cartItemsArr[indexFound].quantity++;
+        } else {
+            cartItemsArr.push({ id: e.target.value, quantity: 1 });
+        }
+        localStorage.setItem('cartItems', JSON.stringify(cartItemsArr));
+        updateCart();
+        fetch('http://localhost:3200/addToCart')
+            .then(res => res.json()
+                .then(data => {
+                    Toastify({
+                        text: data.responseMessage,
+                        backgroundColor: "#96c93d",
+                        className: "info",
+                        close: true,
+                    }).showToast();
+                }))
+    }
+
+    function getProductsOnCategory(eve) {
+        let category = eve.target && eve.target.value || eve;
+        window.location.pathname = `products/${category}`
+    }
+
+    function closeModal() {
+        $('#myModal').hide();
+    }
+
+    function updateCart() {
+        var cartItemsArr = localStorage.getItem('cartItems') && JSON.parse(localStorage.getItem('cartItems')) || [];
+        let cartItemsCount = 0;
+        for (let cartItem of cartItemsArr) {
+            cartItemsCount += cartItem.quantity;
+        }
+        cartItemsCount = cartItemsCount > 1 ? `${cartItemsCount} items` : `${cartItemsCount} item`
+        $('.cart-count').html(cartItemsCount);
+    }
+</script>

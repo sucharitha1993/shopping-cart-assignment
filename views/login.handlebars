@@ -1,0 +1,30 @@
+<section class='login-section router-content'>
+    <div class='helper-txt'>
+        <h4>Login</h4>
+        <div>Get access to your Orders, Wishlist and Recommendations</div>
+    </div>
+    <div>
+        <form>
+            <div class="input-group">
+                <input type="email" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Email</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Password</label>
+            </div>
+            <button onclick='navigateToHome()'>Login</button>
+        </form>
+    </div>
+</section>
+
+<script>
+    function navigateToHome() {
+        window.history.replaceState({}, '', 'home');
+    }
+</script>

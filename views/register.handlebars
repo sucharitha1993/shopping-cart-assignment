@@ -1,0 +1,49 @@
+<section class='register-section router-content'>
+    <div class='helper-txt'>
+        <h4>Signup</h4>
+        <div>we donot share your personal details with anyone</div>
+    </div>
+    <div>
+        <form>
+            <div class="input-group">
+                <input type="text" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Frist Name</label>
+            </div>
+            <div class="input-group">
+                <input type="text" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Last Name</label>
+            </div>
+            <div class="input-group">
+                <input type="email" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Email</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Password</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Confirm password</label>
+            </div>
+            <button onclick="navigateToHome()">Sign up</button>
+        </form>
+    </div>
+
+</section>
+<script>
+    function navigateToHome() {
+        window.history.replaceState({}, '', 'home');
+    }
+</script>

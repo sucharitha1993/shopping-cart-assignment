@@ -2,11 +2,7 @@
 
 /* Big Tablets to Desktops */
 
-@media only screen and (min-width: 1024px) {
-    .cart-section-mob {
-        display: none !important;
-    }
-}
+@media only screen and (max-width: 1200px) {}
 
 
 /* Small tablets to Big tablets: from 768px to 1023px */
@@ -48,27 +44,7 @@
 
 @media only screen and (max-width: 767px) {
     .card-img {
-        width: 80px;
-    }
-    .mob-logo {
-        display: block !important;
-    }
-    .web-logo {
-        display: none !important;
-    }
-    .input-group {
-        margin-left: 0 !important;
-    }
-    .login-section,
-    .register-section {
-        >div form>button,
-        .register-section>div form>button {
-            margin-left: 0 !important;
-        }
-    }
-    .signing-list,
-    .header-list {
-        display: none !important;
+        width: 200px;
     }
     .login-section,
     .register-section {
@@ -113,24 +89,6 @@
                     width: 100px;
                 }
             }
-        }
-    }
-    .no-items {
-        button {
-            position: fixed !important;
-            bottom: 0px !important;
-        }
-    }
-    .cart-section .checkout {
-        position: fixed !important;
-        bottom: 0px !important;
-    }
-    .cart-note {
-        >img {
-            width: 80px;
-        }
-        >span {
-            font-size: 70%
         }
     }
 }

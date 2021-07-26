@@ -1,0 +1,76 @@
+{{#if cartItems }}
+<section class="cart-section router-content">
+    <div class="cart-details">
+        <h4>My Cart</h4> <span class='cart-count'></span>
+    </div>
+    <div class="cart-items-container">
+        {{#each cartItems as |cart| }}
+        <div class="cart-item">
+            <div class="item-details">
+                <img src={{cart.imageURL}} width="80" alt='item'>
+                <div>
+                    <h3>{{cart.name}}</h3>
+                    <div class='price-details'>
+                        <div class='action'>
+                            <button value={{cart.id}} onclick="modifyQuantity(event,'add')">+</button> {{cart.quantity}}
+                            <button value={{cart.id}} onclick="modifyQuantity(event,'sub')">-</button> * {{cart.price}}
+                        </div>
+                        <div class="item-price">{{totalPrice this}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        <div class='cart-note'>
+            <img src='/images/lowest-price.png'>
+            <span>You wont find it cheaper any where</span>
+        </div>
+    </div>
+    <div class='checkout'>
+        <div class='promocode'>Promocode can be applied on payment page</div>
+        <button onclick='window.location.pathname="products/all"'>Proceed to Checkout</button>
+    </div>
+</section>
+{{else}}
+{{>no-items}}
+{{/if}}
+<script>
+    function modifyQuantity(eve, type) {
+        var cartItemsArr = localStorage.getItem('cartItems') && JSON.parse(localStorage.getItem('cartItems')) || [];
+        let indexFound = cartItemsArr.findIndex(cartItem => cartItem.id == eve.target.value);
+        if (type == 'sub') {
+            if (cartItemsArr[indexFound].quantity > 1) {
+                cartItemsArr[indexFound].quantity--;
+            } else {
+                cartItemsArr.splice(indexFound, 1);
+            }
+        } else {
+            if (indexFound > -1) {
+                cartItemsArr[indexFound].quantity++;
+            } else {
+                cartItemsArr.push({ id: eve.target.value, quantity: 1 });
+            }
+        }
+        localStorage.setItem('cartItems', JSON.stringify(cartItemsArr));
+        updateCart();
+        fetch(`http://localhost:3200/cartItem/${eve.target.value}/${type}`).then(res => location.reload())
+    }
+
+    fetch('http://localhost:3200/getCart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: localStorage.getItem('cartItems'),
+    })
+
+    function updateCart() {
+        var cartItemsArr = localStorage.getItem('cartItems') && JSON.parse(localStorage.getItem('cartItems')) || [];
+        let cartItemsCount = 0;
+        for (let cartItem of cartItemsArr) {
+            cartItemsCount += cartItem.quantity;
+        }
+        cartItemsCount = cartItemsCount > 1 ? `${cartItemsCount} items` : `${cartItemsCount} item`
+        $('.cart-count').html(cartItemsCount);
+    }
+</script>
